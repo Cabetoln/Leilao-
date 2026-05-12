@@ -42,7 +42,7 @@ public class GerenciadorLeilao {
             cliente.enviar(String.format("ITEM %s %.2f %d",
                     itemAtual.nome, maiorLance > 0 ? maiorLance : itemAtual.valorMinimo, tempoRestante));
         } else {
-            cliente.enviar("AGUARDE 0");
+            cliente.enviar("AGUARDE");
         }
     }
  
@@ -77,7 +77,7 @@ public class GerenciadorLeilao {
  
     public synchronized String processarStatus() {
         if (!leilaoAtivo || itemAtual == null) {
-            return "AGUARDE 0";
+            return "AGUARDE";
         }
         return String.format("ITEM %s %.2f %d", itemAtual.nome,
                 maiorLance > 0 ? maiorLance : itemAtual.valorMinimo, tempoRestante);
@@ -85,7 +85,7 @@ public class GerenciadorLeilao {
  
     public synchronized void iniciarProximoLeilao() {
         if (filaItens.isEmpty()) {
-            broadcast("AGUARDE 0");
+            broadcast("Sem itens na fila");
             return;
         }
  
@@ -131,7 +131,7 @@ public class GerenciadorLeilao {
         try { Thread.sleep(3000); } catch (InterruptedException ignored) {}
  
         if (!filaItens.isEmpty()) {
-            broadcast("AGUARDE O PRÒXIMO ITEM");
+            broadcast("PRÒXIMO ITEM");
             iniciarProximoLeilao();
         } else {
             broadcast("SEM ITENS RESTANTES");
