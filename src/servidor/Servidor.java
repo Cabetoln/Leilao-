@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class Servidor {
 
-    private static final int PORTA = 12345;
+    private static final int PORTA = 22222;
 
     public static void main(String[] args) {
         GerenciadorLeilao gerenciador = new GerenciadorLeilao();
