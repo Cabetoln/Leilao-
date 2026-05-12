@@ -31,9 +31,9 @@ public class GerenciadorLeilao {
     private Thread threadTimer = null;
  
     public GerenciadorLeilao() {
-        filaItens.add(new Item("Notebook Dell", 1500.00, 60));
-        filaItens.add(new Item("Fone Sony", 300.00, 60));
-        filaItens.add(new Item("Teclado Mecanico", 250.00, 60));
+        filaItens.add(new Item("Enérgetico Monster", 15.00, 10));
+        filaItens.add(new Item("Imagination LV", 2000.00, 10));
+        filaItens.add(new Item("Teclado mecanico", 250.00, 10));
     }
  
     public synchronized void registrarCliente(ClienteHandler cliente) {
@@ -89,7 +89,7 @@ public class GerenciadorLeilao {
             return;
         }
  
-        itemAtual = filaItens.poll();
+        itemAtual = filaItens.peek();
         maiorLance = 0;
         vencedor = null;
         tempoRestante = itemAtual.tempoSegundos;
@@ -121,18 +121,20 @@ public class GerenciadorLeilao {
     private void encerrarLeilao() {
         leilaoAtivo = false;
         if (vencedor != null) {
+            filaItens.poll();
             broadcast(String.format("ENCERRADO %s %.2f", vencedor, maiorLance));
         } else {
+            filaItens.add(filaItens.poll());
             broadcast("ENCERRADO nenhum_lance 0.00");
         }
  
         try { Thread.sleep(3000); } catch (InterruptedException ignored) {}
  
         if (!filaItens.isEmpty()) {
-            broadcast("AGUARDE 3");
+            broadcast("AGUARDE O PRÒXIMO ITEM");
             iniciarProximoLeilao();
         } else {
-            broadcast("AGUARDE 0");
+            broadcast("SEM ITENS RESTANTES");
         }
     }
  

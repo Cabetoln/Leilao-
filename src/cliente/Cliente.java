@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class Cliente {
 
-    private static final String HOST = "localhost";  //private static final String HOST = "192.168.68.107";
+    private static final String HOST = "localhost";  
     private static final int PORTA = 12345;
 
     public static void main(String[] args) {
