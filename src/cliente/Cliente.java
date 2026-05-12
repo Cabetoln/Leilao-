@@ -20,7 +20,12 @@ public class Cliente {
             BufferedReader teclado = new BufferedReader(
                 new InputStreamReader(System.in))
         ) {
-            System.out.println("Conectado ao servidor. Digite LOGIN <apelido> para entrar.");
+            System.out.println("Conectado ao servidor.\n");
+            System.out.println("Comandos disponíveis:");
+            System.out.println("  LOGIN <apelido>   — entrar no leilão com um nome");
+            System.out.println("  LANCE <valor>     — dar um lance (ex: LANCE 1600.00)");
+            System.out.println("  STATUS            — ver o estado atual do leilão");
+            System.out.println("  SAIR              — desconectar\n");
 
             Thread threadLeitura = new Thread(() -> {
                 try {
